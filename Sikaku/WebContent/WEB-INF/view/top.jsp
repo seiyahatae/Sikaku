@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<form action="/Sikaku/result1" method="get">
+<form action="/Sikaku/result2" method="get">
 		<input type="submit" value="一覧"><br>
     資格情報登録
 	<br>
