@@ -18,7 +18,7 @@ public class SikakuDao {
 
 		try {
 			// ②JDBCドライバをロードする
-			//tes
+
 			Class.forName("com.mysql.jdbc.Driver");
 
 			// ③DBMSとの接続を確立する
