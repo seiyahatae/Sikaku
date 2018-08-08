@@ -10,7 +10,7 @@ import dto.Sikaku;
 
 public class SikakuDao {
 
-	public static Sikaku searchDao(int key){
+	public static Sikaku  searchDao(int key){
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -18,7 +18,7 @@ public class SikakuDao {
 
 		try {
 			// ②JDBCドライバをロードする
-
+			//tes
 			Class.forName("com.mysql.jdbc.Driver");
 
 			// ③DBMSとの接続を確立する
@@ -42,8 +42,9 @@ public class SikakuDao {
 			String day = rs.getString("day");
 			String name = rs.getString("name");
 			String results = rs.getString("results");
+            int sikakuid = rs.getInt("sikakuid");
 
-			result = new Sikaku(id,day,name,results );
+			result = new Sikaku(id,day,name,results);
 
 		} catch (ClassNotFoundException e) {
 			System.out.println("JDBCドライバが見つかりません。");
@@ -82,7 +83,7 @@ public class SikakuDao {
 	}
 
 
-	public static int insertDao(int id, String day, String name,String results){
+	public static int insert1Dao(int id, String name, String day,String results){
 		int result = 0;
 
 		//変数の初期化
@@ -94,16 +95,16 @@ public class SikakuDao {
 
 			con = DriverManager.getConnection(
 					"jdbc:mysql://localhost:3306/sikaku?useSSL=false",
-					"user1",
-					"pass1");
+					"root",
+					"sm0902360");
 
-			String sql = "Insert into sikaku values (?,?,?,?,?)";
+			String sql = "Insert into sikaku values (?,?,?,?)";
 
 			pstmt = con.prepareStatement(sql);
 
 			pstmt.setInt(1,id);
-			pstmt.setString(2,day);
-			pstmt.setString(3,name);
+			pstmt.setString(2,name);
+			pstmt.setString(3,day);
 			pstmt.setString(4,results);
 
 			result = pstmt.executeUpdate();
@@ -137,7 +138,7 @@ public class SikakuDao {
 		return result;
 	}
 
-	public static int insertDao(int id, String name,int sikakuid){
+	public static int insert2Dao(int id, String name, String sikakuid){
 		int result = 0;
 
 		//変数の初期化
@@ -149,16 +150,17 @@ public class SikakuDao {
 
 			con = DriverManager.getConnection(
 					"jdbc:mysql://localhost:3306/sikaku?useSSL=false",
-					"user1",
-					"pass1");
+					"root",
+					"sm0902360");
 
-			String sql = "Insert into Students values (?,?,?,?,?)";
+			String sql = "Insert into students values (?,?,?)";
 
 			pstmt = con.prepareStatement(sql);
 
 			pstmt.setInt(1,id);
 			pstmt.setString(2,name);
-			pstmt.setInt(3,sikakuid);
+			pstmt.setString(3,sikakuid);
+
 
 			result = pstmt.executeUpdate();
 
@@ -190,4 +192,3 @@ public class SikakuDao {
 
 		return result;
 	}
-}
