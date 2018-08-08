@@ -12,16 +12,16 @@ import javax.servlet.http.HttpServletResponse;
 import dao.SikakuDao;
 
 /**
- * Servlet implementation class Insert
+ * Servlet implementation class Insert1
  */
-@WebServlet("/Insert")
+@WebServlet("/Insert1")
 public class Insert extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Insert() {
+    public Insert1() {
         super();
         // TODO Auto-generated constructor stub
     }
