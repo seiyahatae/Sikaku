@@ -12,9 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import dao.SikakuDao;
 
 /**
- * Servlet implementation class Insert
+ * Servlet implementation class Insert2
  */
-@WebServlet("/Insert")
+@WebServlet("/Insert2")
 public class Insert2 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -39,10 +39,10 @@ public class Insert2 extends HttpServlet {
 				int sikakuid1 = Integer.parseInt(sikakuid);
 
 				//データベースから値を取得
-				int result = SikakuDao.insertDao(id1,name,sikakuid1);
+				int result2 = SikakuDao.insert2Dao(id1,name,sikakuid);
 
 				//取得した値をリクエストスコープへ
-				request.setAttribute("Sikaku", result);
+				request.setAttribute("Sikaku", result2);
 				request.setAttribute("id", id1);
 				request.setAttribute("name", name);
 				request.setAttribute("sikakuid", sikakuid1);
