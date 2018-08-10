@@ -42,7 +42,7 @@ public class SikakuDao {
 			String day = rs.getString("day");
 			String name = rs.getString("name");
 			String results = rs.getString("results");
-            int sikakuid = rs.getInt("sikakuid");
+			int sikakuid = rs.getInt("sikakuid");
 
 			result = new Sikaku(id,day,name,results);
 
