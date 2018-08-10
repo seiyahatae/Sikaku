@@ -42,7 +42,6 @@ public class ResultServlet extends HttpServlet {
 
 		//取得した値をリクエストスコープへ
 		request.setAttribute("Sikaku", result);
-		request.setAttribute("Students", result);
 
 		//結果画面へフォワード
 		String view = "/WEB-INF/view/result.jsp";
