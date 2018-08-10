@@ -15,7 +15,7 @@ import dao.SikakuDao;
  * Servlet implementation class Insert1
  */
 @WebServlet("/Insert1")
-public class Insert extends HttpServlet {
+public class Insert1 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
@@ -39,7 +39,7 @@ public class Insert extends HttpServlet {
 				String results = request.getParameter("results");
 
 				//データベースから値を取得
-				int result = SikakuDao.insertDao(id1,day,name,results);
+				int result = SikakuDao.insert1Dao(id1,day,name,results);
 
 				//取得した値をリクエストスコープへ
 				request.setAttribute("Sikaku", result);
