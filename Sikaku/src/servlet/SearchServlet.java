@@ -2,6 +2,7 @@ package servlet;
 
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,6 +10,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import dao.SikakuDao;
+import dto.Sikaku;
+import dto.Students;
+
+
+
 
 /**
  * Servlet implementation class SearchServlet
@@ -29,6 +37,15 @@ public class SearchServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		request.setCharacterEncoding("UTF-8");
+		ArrayList<Sikaku> result = SikakuDao.disp_Sikaku();
+		request.setAttribute("al", result);
+
+		request.setCharacterEncoding("UTF-8");
+		ArrayList<Students> result1 = SikakuDao.disp_Students();
+		request.setAttribute("all", result1);
+
 		String view = "/WEB-INF/view/top.jsp";
 		RequestDispatcher dispatcher = request.getRequestDispatcher(view);
 		dispatcher.forward(request, response);
