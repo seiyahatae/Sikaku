@@ -14,5 +14,6 @@
 	%>
 	<p>登録しました。</p>
 
+<a href="http://localhost:8080/Sikaku/top">TOPへ</a>
 </body>
 </html>
