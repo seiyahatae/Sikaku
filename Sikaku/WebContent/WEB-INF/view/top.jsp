@@ -20,7 +20,6 @@
 	<form action="/Sikaku/Insert1" method="get">
 	資格ID：<input type="text" name="siid"><br>
 	資格名：<input type="text" name="siname"><br>
-	受験日：<input type="text" name="day"><br>
 	結　果：<input type="text" name="results"><br>
     <input type="submit" value="登録"><br>
     </form>
