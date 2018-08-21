@@ -1,39 +1,68 @@
 package dto;
 
 public class Students {
-	private int id;
+	private String id;
 	private String name;
-	private int sikakuid;
+	private String sikakuid;
+	private int a;
+	private int b;
 
-	public Students(int id,String name,int sikakuid){
-		this.id = id;
+	public Students(String siname,String name,String sikakuid, String results){
+		this.id = siname;
 		this.name = name;
-		this.sikakuid = sikakuid;
+		this.sikakuid = results;
 
 	}
 
-	public Students(int id) {
+	public Students( int a, String name, int b) {
 		super();
-		this.id = id;
+		this.name = name;
+		this.a = a;
+		this.b = b;
 	}
 
-	public int getId() {
+	public int getA() {
+		return a;
+	}
+
+	public void setA(int a) {
+		this.a = a;
+	}
+
+	public int getB() {
+		return b;
+	}
+
+	public void setB(int b) {
+		this.b = b;
+	}
+
+	public Students(int a) {
+		super();
+		this.a = a;
+	}
+
+	public String getId() {
 		return id;
 	}
-	public void setId(int id) {
+
+	public void setId(String id) {
 		this.id = id;
 	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
 
-	public int getsikakuId() {
+	public String getSikakuid() {
 		return sikakuid;
 	}
-	public void setsikakuId(int sikakuid) {
+
+	public void setSikakuid(String sikakuid) {
 		this.sikakuid = sikakuid;
 	}
-}
+
