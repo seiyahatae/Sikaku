@@ -65,4 +65,4 @@ public class Students {
 	public void setSikakuid(String sikakuid) {
 		this.sikakuid = sikakuid;
 	}
-
+}
