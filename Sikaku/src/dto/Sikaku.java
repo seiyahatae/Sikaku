@@ -31,13 +31,6 @@ public class Sikaku {
 	public void setName(String name) {
 		this.name = name;
 	}
-
-	public String getday() {
-		return day;
-	}
-	public void setyear(String day) {
-		this.day = day;
-	}
 	public String geteffect() {
 		return results;
 	}
