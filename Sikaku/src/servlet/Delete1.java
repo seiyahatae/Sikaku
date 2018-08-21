@@ -1,7 +1,5 @@
 package servlet;
 
-
-
 import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
@@ -34,10 +32,10 @@ public class Delete1 extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//formに入力された検索キーを取得
 				request.setCharacterEncoding("UTF-8");
-				String id = request.getParameter("id");
-				int id1 = Integer.parseInt(id);
+				String siid = request.getParameter("siid");
+				int siid1 = Integer.parseInt(siid);
 
-				SikakuDao.Delete1Dao(id1);
+				SikakuDao.Delete1Dao(siid1);
 				String view = "/WEB-INF/view/result2.jsp";
 				RequestDispatcher dispatcher = request.getRequestDispatcher(view);
 				dispatcher.forward(request, response);
