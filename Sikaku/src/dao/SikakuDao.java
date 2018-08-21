@@ -27,7 +27,7 @@ public class SikakuDao {
 					"root",
 					"sm0902360");
 
-			String sql = "select students.id,students.name,sikaku.siname,sikaku.day,sikaku.results from students,sikaku  where students.sikakuid = sikaku.siid;";
+			String sql = "select students.id,students.name,sikaku.siname,sikaku.results from students,sikaku  where students.sikakuid = sikaku.siid;";
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 
@@ -35,12 +35,11 @@ public class SikakuDao {
 
 				String name = rs.getString("name");
 				String siname = rs.getString("siname");
-				String day = rs.getString("day");
 				String results = rs.getString("results");
 
 
 
-				resultList.add(new Students(name,siname,day,results));
+				resultList.add(new Students(name,siname,results, results));
 
 			}
 		} catch (SQLException e){
@@ -79,7 +78,7 @@ public class SikakuDao {
 	}
 
 
-	public static int insert1Dao(int siid1, String siname, String day,String results){
+	public static int insert1Dao(int siid, String siname, String results){
 		int result = 0;
 
 		//変数の初期化
@@ -94,14 +93,13 @@ public class SikakuDao {
 					"root",
 					"sm0902360");
 
-			String sql = "Insert into sikaku values (?,?,?,?)";
+			String sql = "Insert into sikaku values (?,?,?)";
 
 			pstmt = con.prepareStatement(sql);
 
-			pstmt.setInt(1,siid1);
+			pstmt.setInt(1,siid);
 			pstmt.setString(2,siname);
-			pstmt.setString(3,day);
-			pstmt.setString(4,results);
+			pstmt.setString(3,results);
 
 			result = pstmt.executeUpdate();
 
