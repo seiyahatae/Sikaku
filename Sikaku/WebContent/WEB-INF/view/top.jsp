@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 	<%@ page import="dto.Sikaku"%>
 	<%@ page import="dto.Students"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,15 +15,11 @@
 <%@include file="../view/list.jsp" %>
 <br>
 
-学生情報一覧
-<%@include file="../view/list1.jsp" %>
-<br>
-
 資格情報登録
 	<br>
 	<form action="/Sikaku/Insert1" method="get">
-	資格ID：<input type="text" name="id"><br>
-	資格名：<input type="text" name="name"><br>
+	資格ID：<input type="text" name="siid"><br>
+	資格名：<input type="text" name="siname"><br>
 	受験日：<input type="text" name="day"><br>
 	結　果：<input type="text" name="results"><br>
     <input type="submit" value="登録"><br>
@@ -47,7 +44,7 @@
     資格削除
 	<br>
 	<form action="/Sikaku/Delete1" method="get">
-	ID：<input type="text" name="id"><br>
+	ID：<input type="text" name="siid"><br>
 	<input type="submit" value="削除"><br>
     </form>
 
