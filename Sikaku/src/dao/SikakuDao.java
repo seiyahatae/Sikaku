@@ -12,8 +12,10 @@ import dto.Students;
 
 public class SikakuDao {
 
-	public static ArrayList<Sikaku> disp_Sikaku(){	//テーブル表示
-		ArrayList<Sikaku> resultList = new ArrayList<Sikaku>();
+
+
+	public static ArrayList<Students> disp_ichiran(){	//テーブル表示
+		ArrayList<Students> resultList = new ArrayList<Students>();
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -25,17 +27,20 @@ public class SikakuDao {
 					"root",
 					"sm0902360");
 
-			String sql = "SELECT * FROM sikaku";
+			String sql = "select students.id,students.name,sikaku.siname,sikaku.day,sikaku.results from students,sikaku  where students.sikakuid = sikaku.siid;";
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 
 			while(rs.next()){
-				int id = rs.getInt("id");
+
 				String name = rs.getString("name");
+				String siname = rs.getString("siname");
 				String day = rs.getString("day");
 				String results = rs.getString("results");
 
-				resultList.add(new Sikaku(id,name,day,results));
+
+
+				resultList.add(new Students(name,siname,day,results));
 
 			}
 		} catch (SQLException e){
@@ -73,69 +78,8 @@ public class SikakuDao {
 		return resultList;
 	}
 
-	public static ArrayList<Students> disp_Students(){	//テーブル表示
-		ArrayList<Students> resultList1 = new ArrayList<Students>();
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
 
-		try{
-			Class.forName("com.mysql.jdbc.Driver");
-			con = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/sikaku?useSSL=false",
-					"root",
-					"sm0902360");
-
-			String sql = "SELECT * FROM students";
-			pstmt = con.prepareStatement(sql);
-			rs = pstmt.executeQuery();
-
-			while(rs.next()){
-				int id = rs.getInt("id");
-				String name = rs.getString("name");
-				int sikakuid = rs.getInt("sikakuid");
-
-
-				resultList1.add(new Students(id,name,sikakuid));
-
-			}
-		} catch (SQLException e){
-			System.out.println("DBアクセスに失敗しました。");
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if( rs != null){
-					rs.close();
-				}
-			} catch(SQLException e){
-				System.out.println("DB切断時にエラーが発生しました。");
-				e.printStackTrace();
-			}
-			try {
-				if( pstmt != null){
-					pstmt.close();
-				}
-			} catch(SQLException e){
-				System.out.println("DB切断時にエラーが発生しました。");
-				e.printStackTrace();
-			}
-			try {
-				if( con != null){
-					con.close();
-				}
-			} catch (SQLException e){
-				System.out.println("DB切断時にエラーが発生しました。");
-				e.printStackTrace();
-			}
-		}
-
-		return resultList1;
-
-	}
-
-	public static int insert1Dao(int id, String name, String day,String results){
+	public static int insert1Dao(int siid1, String siname, String day,String results){
 		int result = 0;
 
 		//変数の初期化
@@ -154,8 +98,8 @@ public class SikakuDao {
 
 			pstmt = con.prepareStatement(sql);
 
-			pstmt.setInt(1,id);
-			pstmt.setString(2,name);
+			pstmt.setInt(1,siid1);
+			pstmt.setString(2,siname);
 			pstmt.setString(3,day);
 			pstmt.setString(4,results);
 
@@ -190,7 +134,7 @@ public class SikakuDao {
 		return result;
 	}
 
-	public static int insert2Dao(int id, String name1, String sikakuid){
+	public static int insert2Dao(int id, String name, String sikakuid){
 		int result = 0;
 
 		//変数の初期化
@@ -210,7 +154,7 @@ public class SikakuDao {
 			pstmt = con.prepareStatement(sql);
 
 			pstmt.setInt(1,id);
-			pstmt.setString(2,name1);
+			pstmt.setString(2,name);
 			pstmt.setString(3,sikakuid);
 
 
@@ -245,7 +189,7 @@ public class SikakuDao {
 		return result;
 	}
 
-	public static Sikaku Delete1Dao(int id){
+	public static Sikaku Delete1Dao(int siid){
 		Sikaku result = null;
 
 		Connection con = null;
@@ -258,12 +202,12 @@ public class SikakuDao {
 					"root",
 					"sm0902360");
 
-			String sql = "DELETE FROM sikaku where id = ?";
+			String sql = "DELETE FROM sikaku where siid = ?";
 
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1,id);
+			pstmt.setInt(1,siid);
 			pstmt.executeUpdate();
-			result = new Sikaku(id);
+			result = new Sikaku(siid);
 
 		} catch (SQLException e){
 			System.out.println("DBアクセスに失敗しました。");
@@ -341,5 +285,4 @@ public class SikakuDao {
 		return result;
 	}
 }
-
 
