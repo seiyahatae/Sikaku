@@ -34,18 +34,16 @@ public class Insert1 extends HttpServlet {
 				request.setCharacterEncoding("UTF-8");
 				String siid = request.getParameter("siid");
 				int siid1 = Integer.parseInt(siid);
-				String day = request.getParameter("day");
 				String siname = request.getParameter("siname");
 				String results = request.getParameter("results");
 
 				//データベースから値を取得
-				int result = SikakuDao.insert1Dao(siid1,siname,day,results);
+				int result = SikakuDao.insert1Dao(siid1,siname,results);
 
 				//取得した値をリクエストスコープへ
 				request.setAttribute("Sikaku", result);
 				request.setAttribute("siid", siid1);
 				request.setAttribute("siname", siname);
-				request.setAttribute("day", day);
 				request.setAttribute("results", results);
 
 				//結果画面へフォワード
