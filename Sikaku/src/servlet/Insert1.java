@@ -1,4 +1,4 @@
-
+package servlet;
 
 import java.io.IOException;
 
@@ -32,20 +32,20 @@ public class Insert1 extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//formに入力された検索キーを取得
 				request.setCharacterEncoding("UTF-8");
-				String id = request.getParameter("id");
-				int id1 = Integer.parseInt(id);
+				String siid = request.getParameter("siid");
+				int siid1 = Integer.parseInt(siid);
 				String day = request.getParameter("day");
-				String name = request.getParameter("name");
+				String siname = request.getParameter("siname");
 				String results = request.getParameter("results");
 
 				//データベースから値を取得
-				int result = SikakuDao.insert1Dao(id1,day,name,results);
+				int result = SikakuDao.insert1Dao(siid1,siname,day,results);
 
 				//取得した値をリクエストスコープへ
 				request.setAttribute("Sikaku", result);
-				request.setAttribute("id", id1);
+				request.setAttribute("siid", siid1);
+				request.setAttribute("siname", siname);
 				request.setAttribute("day", day);
-				request.setAttribute("name", name);
 				request.setAttribute("results", results);
 
 				//結果画面へフォワード
