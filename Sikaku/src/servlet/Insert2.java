@@ -33,17 +33,17 @@ public class Insert2 extends HttpServlet {
 		//formに入力された検索キーを取得
 				request.setCharacterEncoding("UTF-8");
 				String id = request.getParameter("id");
-				int id1 = Integer.parseInt(id);
+				int id2 = Integer.parseInt(id);
 				String name = request.getParameter("name");
 				String sikakuid = request.getParameter("sikakuid");
 				int sikakuid1 = Integer.parseInt(sikakuid);
 
 				//データベースから値を取得
-				int result2 = SikakuDao.insert2Dao(id1,name,sikakuid);
+				int result2 = SikakuDao.insert2Dao(id2,name,sikakuid);
 
 				//取得した値をリクエストスコープへ
 				request.setAttribute("Sikaku", result2);
-				request.setAttribute("id", id1);
+				request.setAttribute("id", id);
 				request.setAttribute("name", name);
 				request.setAttribute("sikakuid", sikakuid1);
 
