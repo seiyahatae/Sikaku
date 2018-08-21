@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ page import="dto.Students"%>
 	<%@ page import="dto.Sikaku"%>
 	<%@ page import="java.util.ArrayList"%>
 
@@ -13,7 +14,7 @@
 
 <table border="1">
 		<tr>
-			<th>ID</th>
+			<th>名前</th>
 			<th>資格名</th>
 			<th>受験日</th>
 			<th>結果</th>
@@ -21,14 +22,14 @@
 		</tr>
 		<%
 			@SuppressWarnings("unchecked")
-			ArrayList<Sikaku> al = (ArrayList<Sikaku>) request.getAttribute("al");
-			for (Sikaku si : al) {
+			ArrayList<Students> all2 = (ArrayList<Students>) request.getAttribute("all2");
+			for (int i = 0;i<all2.size();i++) {
 		%>
 		<tr>
-			<td><%=si.getId()%></td>
-			<td><%=si.getName()%></td>
-			<td><%=si.getday()%></td>
-			<td><%=si.geteffect()%></td>
+		    <td><%=all2.get(i).getId()%></td>
+		    <td><%=all2.get(i).getName()%></td>
+		    <td><%=all2.get(i).getSikakuid()%></td>
+
 
 		</tr>
 		<%
