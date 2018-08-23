@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.SikakuDao;
+import dto.Sikaku;
+import dto.Student;
 import dto.Students;
 
 
@@ -40,6 +42,14 @@ public class SearchServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		ArrayList<Students> result = SikakuDao.disp_ichiran();
 		request.setAttribute("all2", result);
+
+		request.setCharacterEncoding("UTF-8");
+		ArrayList<Sikaku> result1 = SikakuDao.disp_Sikaku();
+		request.setAttribute("all1", result1);
+
+		request.setCharacterEncoding("UTF-8");
+		ArrayList<Student> result3 = SikakuDao.disp_Student();
+		request.setAttribute("all3", result3);
 
 		String view = "/WEB-INF/view/top.jsp";
 		RequestDispatcher dispatcher = request.getRequestDispatcher(view);
