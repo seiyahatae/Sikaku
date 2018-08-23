@@ -1,286 +1,66 @@
-package dao;
+package servlet;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+
+import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import dto.Sikaku;
+import dto.Student;
 import dto.Students;
 
-public class SikakuDao {
 
 
 
-	public static ArrayList<Students> disp_ichiran(){	//テーブル表示
-		ArrayList<Students> resultList = new ArrayList<Students>();
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
+/**
+ * Servlet implementation class SearchServlet
+ */
+@WebServlet("/top")
+public class SearchServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
 
-		try{
-			Class.forName("com.mysql.jdbc.Driver");
-			con = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/sikaku?useSSL=false",
-					"root",
-					"sm0902360");
-
-			String sql = "select students.id,students.name,sikaku.siname,sikaku.results from students,sikaku  where students.sikakuid = sikaku.siid;";
-			pstmt = con.prepareStatement(sql);
-			rs = pstmt.executeQuery();
-
-			while(rs.next()){
-
-				String name = rs.getString("name");
-				String siname = rs.getString("siname");
-				String results = rs.getString("results");
-
-
-
-				resultList.add(new Students(name,siname,results, results));
-
-			}
-		} catch (SQLException e){
-			System.out.println("DBアクセスに失敗しました。");
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if( rs != null){
-					rs.close();
-				}
-			} catch(SQLException e){
-				System.out.println("DB切断時にエラーが発生しました。");
-				e.printStackTrace();
-			}
-			try {
-				if( pstmt != null){
-					pstmt.close();
-				}
-			} catch(SQLException e){
-				System.out.println("DB切断時にエラーが発生しました。");
-				e.printStackTrace();
-			}
-			try {
-				if( con != null){
-					con.close();
-				}
-			} catch (SQLException e){
-				System.out.println("DB切断時にエラーが発生しました。");
-				e.printStackTrace();
-			}
-		}
-
-		return resultList;
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public SearchServlet() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-	public static int insert1Dao(int siid, String siname, String results){
-		int result = 0;
+		request.setCharacterEncoding("UTF-8");
+		ArrayList<Students> result = SikakuDao.disp_ichiran();
+		request.setAttribute("all2", result);
 
-		//変数の初期化
-		Connection con = null;
-		PreparedStatement pstmt = null;
+		request.setCharacterEncoding("UTF-8");
+		ArrayList<Sikaku> result1 = SikakuDao.disp_Sikaku();
+		request.setAttribute("all1", result1);
 
-		try{
-			Class.forName("com.mysql.jdbc.Driver");
+		request.setCharacterEncoding("UTF-8");
+		ArrayList<Student> result3 = SikakuDao.disp_Student();
+		request.setAttribute("all3", result3);
 
-			con = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/sikaku?useSSL=false",
-					"root",
-					"sm0902360");
-
-			String sql = "Insert into sikaku values (?,?,?)";
-
-			pstmt = con.prepareStatement(sql);
-
-			pstmt.setInt(1,siid);
-			pstmt.setString(2,siname);
-			pstmt.setString(3,results);
-
-			result = pstmt.executeUpdate();
-
-		} catch (SQLException e){
-			System.out.println("DBアクセスに失敗しました。");
-			e.printStackTrace();
-		} catch (Exception e){
-			System.out.println("数字を指定してください。");
-		} finally {
-			try {
-				if( pstmt != null){
-					pstmt.close();
-				}
-			} catch(SQLException e){
-				System.out.println("DB切断時にエラーが発生しました。");
-				e.printStackTrace();
-			}
-
-			try {
-				if( con != null){
-					con.close();
-				}
-			} catch (SQLException e){
-				System.out.println("DB切断時にエラーが発生しました。");
-				e.printStackTrace();
-			}
-		}
-
-
-		return result;
+		String view = "/WEB-INF/view/top.jsp";
+		RequestDispatcher dispatcher = request.getRequestDispatcher(view);
+		dispatcher.forward(request, response);
 	}
 
-	public static int insert2Dao(int id, String name, String sikakuid){
-		int result = 0;
-
-		//変数の初期化
-		Connection con = null;
-		PreparedStatement pstmt = null;
-
-		try{
-			Class.forName("com.mysql.jdbc.Driver");
-
-			con = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/sikaku?useSSL=false",
-					"root",
-					"sm0902360");
-
-			String sql = "Insert into students values (?,?,?)";
-
-			pstmt = con.prepareStatement(sql);
-
-			pstmt.setInt(1,id);
-			pstmt.setString(2,name);
-			pstmt.setString(3,sikakuid);
-
-
-			result = pstmt.executeUpdate();
-
-		} catch (SQLException e){
-			System.out.println("DBアクセスに失敗しました。");
-			e.printStackTrace();
-		} catch (Exception e){
-			System.out.println("数字を指定してください。");
-		} finally {
-			try {
-				if( pstmt != null){
-					pstmt.close();
-				}
-			} catch(SQLException e){
-				System.out.println("DB切断時にエラーが発生しました。");
-				e.printStackTrace();
-			}
-
-			try {
-				if( con != null){
-					con.close();
-				}
-			} catch (SQLException e){
-				System.out.println("DB切断時にエラーが発生しました。");
-				e.printStackTrace();
-			}
-		}
-
-
-		return result;
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
 	}
 
-	public static Sikaku Delete1Dao(int siid){
-		Sikaku result = null;
-
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		try{
-			Class.forName("com.mysql.jdbc.Driver");
-
-			con = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/sikaku?useSSL=false",
-					"root",
-					"sm0902360");
-
-			String sql = "DELETE FROM sikaku where siid = ?";
-
-			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1,siid);
-			pstmt.executeUpdate();
-			result = new Sikaku(siid);
-
-		} catch (SQLException e){
-			System.out.println("DBアクセスに失敗しました。");
-			e.printStackTrace();
-		} catch (Exception e){
-			System.out.println("数字を指定してください。");
-		} finally {
-			try {
-				if( pstmt != null){
-					pstmt.close();
-				}
-			} catch(SQLException e){
-				System.out.println("DB切断時にエラーが発生しました。");
-				e.printStackTrace();
-			}
-
-			try {
-				if( con != null){
-					con.close();
-				}
-			} catch (SQLException e){
-				System.out.println("DB切断時にエラーが発生しました。");
-				e.printStackTrace();
-			}
-		}
-
-		return result;
-	}
-
-	public static Students Delete2Dao(int id){
-		Students result = null;
-
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		try{
-			Class.forName("com.mysql.jdbc.Driver");
-
-			con = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/sikaku?useSSL=false",
-					"root",
-					"sm0902360");
-
-			String sql = "DELETE FROM students where id = ?";
-
-			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1,id);
-			pstmt.executeUpdate();
-			result = new Students(id);
-
-		} catch (SQLException e){
-			System.out.println("DBアクセスに失敗しました。");
-			e.printStackTrace();
-		} catch (Exception e){
-			System.out.println("数字を指定してください。");
-		} finally {
-			try {
-				if( pstmt != null){
-					pstmt.close();
-				}
-			} catch(SQLException e){
-				System.out.println("DB切断時にエラーが発生しました。");
-				e.printStackTrace();
-			}
-
-			try {
-				if( con != null){
-					con.close();
-				}
-			} catch (SQLException e){
-				System.out.println("DB切断時にエラーが発生しました。");
-				e.printStackTrace();
-			}
-		}
-
-		return result;
-	}
 }
-
