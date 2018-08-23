@@ -12,6 +12,12 @@
 <body>
 
 資格情報一覧
+<%@include file="../view/sikakulist.jsp" %>
+
+学生情報一覧
+<%@include file="../view/studentslist.jsp" %>
+
+受験結果一覧
 <%@include file="../view/list.jsp" %>
 <br>
 
